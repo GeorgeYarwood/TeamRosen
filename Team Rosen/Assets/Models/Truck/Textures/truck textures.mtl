@@ -1,0 +1,143 @@
+newmtl lambert15
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert14
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert13
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert11
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert12
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert8
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert7
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert10
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert3
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert2
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert4
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert6
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
+newmtl lambert5
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd truck textures_Albedo.tga
+bump truck textures_Height.tga
+map_bump truck textures_Normal.tga
