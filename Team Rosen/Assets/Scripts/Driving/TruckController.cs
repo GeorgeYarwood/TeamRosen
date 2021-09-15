@@ -63,13 +63,22 @@ public class TruckController : MonoBehaviour
     Vector3 lastPosition;
 
     //Engine sound
-    public AudioClip engineAud;
+    public AudioClip idleAud;
+    public AudioClip ignitionAud;
+
+    public AudioSource engineAud;
+
+    //If truck is running
+    bool isOn;
 
     public GameObject truckStopMsg;
     
     // Start is called before the first frame update
     void Start()
     {
+        //Is the truck running
+        isOn = false;
+
         //Reset
         timeHeld = 0;
         //Set starting revs and gear
@@ -88,9 +97,11 @@ public class TruckController : MonoBehaviour
         {
             gear += 1;
             revCount = minRev + 500f;
-            Debug.Log(gear);
+            //Debug.Log(gear);
             StartCoroutine(gearChangeWait());
-            
+            engineAud.pitch = 0.95f;
+
+
         }
        
     }
@@ -103,9 +114,9 @@ public class TruckController : MonoBehaviour
             gear -= 1;
             if(gear != 0)
             revCount = maxRev - 500f;
-            Debug.Log(gear);
+            //Debug.Log(gear);
             StartCoroutine(gearChangeWait());
-
+            engineAud.pitch = 1.15f;
         }
 
     }
@@ -113,6 +124,8 @@ public class TruckController : MonoBehaviour
     IEnumerator gearChangeWait() 
     {
         gearChanging = true;
+        
+
         yield return new WaitForSeconds(1.5f);
         gearChanging = false;
 
@@ -121,29 +134,47 @@ public class TruckController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(revCount);
+        //Debug.Log(revCount);
 
         //Work out current speed
         speed = (transform.position - lastPosition).magnitude / Time.deltaTime;
 
 
         //Check player is in truck
-        if (PlayerController.isDriving)
+        if (PlayerController.isDriving && isOn)
         {
+            if (!engineAud.isPlaying) 
+            {
+                engineAud.clip = idleAud;
+                engineAud.Play();
+            }
+
+            if (gearChanging) 
+            {
+                truckRb.AddForce(truckRb.transform.forward * (8 * gear));
+            }
 
             //Acceleration
 
-            if (Input.GetKey("w") && !gearChanging && truckRb.velocity.z < maxSpeed)
+            //Reverse gear
+            if(Input.GetKey("s") && speed == 0 && gear <= 0) 
+            {
+                gear = -1;
+                truckRb.AddForce(truckRb.transform.forward * -400);
+            }
+
+            else if (Input.GetKey("w") && !gearChanging && speed < maxSpeed)
             {
                 if(gear > 0) 
                 {
                     //Start counting
                     timeHeld += 1 * Time.deltaTime;
 
-                    if (revCount < maxRev - 500)
+                    if (revCount < maxRev - Random.Range(0,500))
                     {
                         if (timeHeld <= 3f)
                         {
+                           
                             revCount += 2f;
                             truckRb.AddForce(truckRb.transform.forward * lowForce);
 
@@ -154,7 +185,7 @@ public class TruckController : MonoBehaviour
                             truckRb.AddForce(truckRb.transform.forward * highForce);
 
                         }
-
+                        engineAud.pitch += 0.001f;
                     }
                     else if(gear < maxGear)
                     {
@@ -175,22 +206,27 @@ public class TruckController : MonoBehaviour
 
 
             }
-            else if (revCount > minRev+1)
+            else if (!Input.GetKey("w") && revCount > minRev+1)
             {
-
+               
                 if (Input.GetKey("s"))
                 {
+                    //Start counting
+                    timeHeld += 1 * Time.deltaTime;
+
                     revCount -= 40f;
                     truckRb.AddForce(-(truckRb.transform.forward * lowForce));
-
                 }
                 else 
                 {
                     revCount -= 5f;
+              
+                    truckRb.AddForce(truckRb.transform.forward * (8 * gear));
 
                 }
+                engineAud.pitch -= 0.001f;
             }
-            else if(gear > minGear + 1)
+            if(gear > minGear + 1 && revCount <= minRev + Random.Range(0, 500))
             {
                 shiftDown();
             }
@@ -201,10 +237,7 @@ public class TruckController : MonoBehaviour
 
             }
 
-            if(gear > 1 && revCount > minRev)
-            {
-                truckRb.AddForce(truckRb.transform.forward * 7f);
-            }
+            
 
             //Steering
 
@@ -217,18 +250,18 @@ public class TruckController : MonoBehaviour
             {
                 if (speed < 1)
                 {
-                    left = .1f;
+                    left = .05f;
 
                 }
 
                 else if (speed <= 5) 
                 {
-                    left = .4f;
+                    left = .2f;
 
                 }
                 else
                 {
-                    left = .2f;
+                    left = .1f;
 
                 }
                
@@ -239,25 +272,25 @@ public class TruckController : MonoBehaviour
             {
                 if (speed < 1)
                 {
-                    left = -.1f;
+                    left = -.05f;
 
                 }
 
                 else if (speed <= 5)
                 {
-                    left = -.4f;
+                    left = -.2f;
 
                 }
                 else
                 {
-                    left = - .2f;
+                    left = - .1f;
 
                 }
             }
 
             transform.Rotate(0, (float)left, 0);
 
-            Debug.Log(speed);
+            Debug.Log("Current speed: " + speed);
 
             lastPosition = transform.position;
         }
@@ -269,11 +302,29 @@ public class TruckController : MonoBehaviour
     {
         revCounterUI.value = revCount;
 
-        gearTxt.text = gear.ToString();
+        if(gear != 0 && gear != -1) 
+        {
+            gearTxt.text = gear.ToString();
 
-        
-        
-        
+        }
+        else if(gear == 0) 
+        {
+            gearTxt.text = "N";
+        }
+        else if(gear == -1) 
+        {
+            gearTxt.text = "R";
+        }
+
+        if (Input.GetKey("e") &&!isOn && !engineAud.isPlaying) 
+        {
+
+            engineAud.clip = ignitionAud;
+            engineAud.Play();
+            StartCoroutine(startTruck());
+        }
+
+
 
         if (Input.GetKey("e") && PlayerController.isDriving && speed <=0)
         {
@@ -281,15 +332,26 @@ public class TruckController : MonoBehaviour
             truckCam.gameObject.SetActive(false);
             PlayerController.playerModel.SetActive(true);
             PlayerController.playerModel.transform.position = truckExit.transform.position;
+            engineAud.Stop();
             StartCoroutine(wait());
         }
-        else if(Input.GetKey("e") && PlayerController.isDriving && speed >1)
+        else if(Input.GetKey("e") && PlayerController.isDriving && speed > 5)
         {
             StartCoroutine(stopTruck());
         }
 
 
     }
+
+    IEnumerator startTruck() 
+    {
+
+
+        yield return new WaitForSeconds(engineAud.clip.length);
+        isOn = true;
+
+    }
+
 
     IEnumerator wait()
     {

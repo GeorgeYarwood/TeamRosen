@@ -354,7 +354,9 @@ MonoBehaviour:
   truckRb: {fileID: 0}
   truckPivot: {fileID: 963759554}
   truckExit: {fileID: 1689475113}
-  engineAud: {fileID: 0}
+  idleAud: {fileID: 8300000, guid: dabe41e8acea26b409d250b2bbc87f37, type: 3}
+  ignitionAud: {fileID: 8300000, guid: 7b0a7ab5e5dd2b7428c57281561032db, type: 3}
+  engineAud: {fileID: 919132148285660747}
   truckStopMsg: {fileID: 474044267}
 --- !u!54 &447491877
 Rigidbody:
@@ -540,8 +542,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761738425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.221198, y: -2.5747933, z: -12.725054}
-  m_LocalScale: {x: 35.181335, y: 0.053922, z: 205.86435}
+  m_LocalPosition: {x: 6.2212, y: -2.5747933, z: -12.725}
+  m_LocalScale: {x: 234.06847, y: 0.053922, z: 3407.261}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -954,7 +956,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421262652}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1421262655
 Camera:
   m_ObjectHideFlags: 0
@@ -1466,6 +1468,102 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b21b564c20e0a04eb5ee0315d5d3b2d, type: 3}
   m_PrefabInstance: {fileID: 1412981531}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &919132148285660747
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148285660746}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7b0a7ab5e5dd2b7428c57281561032db, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &3515727108102835417
 PrefabInstance:
   m_ObjectHideFlags: 0
