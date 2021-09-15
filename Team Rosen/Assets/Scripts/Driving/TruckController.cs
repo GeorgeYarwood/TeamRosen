@@ -151,7 +151,15 @@ public class TruckController : MonoBehaviour
 
             if (gearChanging) 
             {
-                truckRb.AddForce(truckRb.transform.forward * (8 * gear));
+                if(gear < 3) 
+                {
+                    truckRb.AddForce(truckRb.transform.forward * (7 * gear));
+                }
+                else 
+                {
+                    truckRb.AddForce(truckRb.transform.forward * (5 * gear));
+                }
+                
             }
 
             //Acceleration
@@ -221,7 +229,15 @@ public class TruckController : MonoBehaviour
                 {
                     revCount -= 5f;
               
-                    truckRb.AddForce(truckRb.transform.forward * (8 * gear));
+                    if(gear < 4) 
+                    {
+                        truckRb.AddForce(truckRb.transform.forward * (6 * gear));
+                    }
+                    else 
+                    {
+                        truckRb.AddForce(truckRb.transform.forward * (2 * gear));
+                    }
+                    
 
                 }
                 engineAud.pitch -= 0.001f;
@@ -248,44 +264,42 @@ public class TruckController : MonoBehaviour
             //Right turn
             if (Input.GetKey("d")) 
             {
-                if (speed < 1)
-                {
-                    left = .05f;
+               
+                    if (speed < 1)
+                    {
+                        left = .05f;
 
-                }
+                    }
 
-                else if (speed <= 5) 
-                {
-                    left = .2f;
+                    else 
+                    {
+                        left = .3f;
 
-                }
-                else
-                {
-                    left = .1f;
-
-                }
+                    }
+                   
+                
+               
                
             }
 
             //Left turn
             if (Input.GetKey("a"))
             {
-                if (speed < 1)
-                {
-                    left = -.05f;
+               
+                    if (speed < 1)
+                    {
+                        left = -.05f;
 
-                }
+                    }
 
-                else if (speed <= 5)
-                {
-                    left = -.2f;
+                    else
+                    {
+                        left = -.3f;
 
-                }
-                else
-                {
-                    left = - .1f;
-
-                }
+                    }
+                
+                
+               
             }
 
             transform.Rotate(0, (float)left, 0);

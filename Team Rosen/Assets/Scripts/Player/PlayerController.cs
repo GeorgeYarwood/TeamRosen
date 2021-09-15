@@ -146,13 +146,13 @@ public class PlayerController : MonoBehaviour
             {
                 enterTruckTxt.gameObject.SetActive(true);
             }
-            else 
-            {
-                enterTruckTxt.gameObject.SetActive(false);
-
-            }
+           
         }
+        else
+        {
+            enterTruckTxt.gameObject.SetActive(false);
 
+        }
         if (enterTruckTxt.gameObject.activeInHierarchy) 
         {
             if (Input.GetKey("e")) 
