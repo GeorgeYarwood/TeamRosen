@@ -5,10 +5,11 @@ using UnityEngine;
 public class TrashCanSpawn : MonoBehaviour
 {
     bool isCollected;
-    public GameObject[] TrashCans = new GameObject[12];
+    public GameObject[] TrashCans;
 
     bool ready = false;
-    
+    int randomIndex;
+
     public 
     // Start is called before the first frame update
     void Start()
@@ -23,11 +24,11 @@ public class TrashCanSpawn : MonoBehaviour
         {
             TrashCans[i].SetActive(false);
         }
-
+        randomIndex = Random.Range(0, TrashCans.Length);
         //Only start changing them when they have all been disabled
         ready = true;
         
-
+       
     }
 
     // Update is called once per frame
@@ -35,10 +36,17 @@ public class TrashCanSpawn : MonoBehaviour
     {
         if (ready) 
         {
-            int randomIndex = Random.Range(0, TrashCans.Length);
+            
 
             
             TrashCans[randomIndex].SetActive(true);
+            if(Input.GetKeyDown(KeyCode.LeftControl) == true)
+            {
+                TrashCans[randomIndex].SetActive(false);
+                randomIndex = Random.Range(0, TrashCans.Length);
+                TrashCans[randomIndex].SetActive(true);
+                //print("Key works");
+            }
         }
         
         
