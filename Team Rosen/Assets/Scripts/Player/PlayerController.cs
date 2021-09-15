@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     //Last mosue position
     Vector3 lastMouse;
 
+    static public bool isDriving;
+
 
     //Cooldown for jump
     bool canJump;
@@ -36,6 +38,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        isDriving = true;
+
         //Get player rigidbody
         playerRB = GetComponent<Rigidbody>();
 
