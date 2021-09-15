@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     //Player's rigidbody
     Rigidbody playerRB;
+
+    public static GameObject playerModel;
 
     //Speed player moves at
     float moveSpeed = 20f;
@@ -29,17 +32,20 @@ public class PlayerController : MonoBehaviour
     //Last mosue position
     Vector3 lastMouse;
 
+    //If player is in the truck
     static public bool isDriving;
-
 
     //Cooldown for jump
     bool canJump;
 
+    public Text enterTruckTxt;
+
+    public GameObject truckCam;
+
     // Start is called before the first frame update
     void Start()
     {
-
-        isDriving = true;
+        playerModel = this.gameObject;
 
         //Get player rigidbody
         playerRB = GetComponent<Rigidbody>();
@@ -56,9 +62,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() 
     {
-
-        ///Keyboard movements
-        ///
+        if (!isDriving) 
+        {
+            ///Keyboard movements
+            ///
             //Forward/Backward
             if (Input.GetKey("w"))
             {
@@ -85,19 +92,19 @@ public class PlayerController : MonoBehaviour
             }
 
             //Jump
-            if (Input.GetKey("space")) 
+            if (Input.GetKey("space"))
             {
                 //If jump off cooldown
-                if (canJump) 
+                if (canJump)
                 {
                     playerRB.AddForce(playerRB.transform.up * jumpSpeed);
                     StartCoroutine(jumpTimer());
                 }
-                
+
             }
 
-        ///Mouse movements
-        ///
+            ///Mouse movements
+            ///
 
 
             //Get mouse movements
@@ -111,6 +118,9 @@ public class PlayerController : MonoBehaviour
 
             //Apply rotation to rigidbody
             playerRB.transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        }
+
+        
 
     }
 
@@ -124,6 +134,41 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        //Check is player is looking at the truck
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        //If we hit
+        if(Physics.Raycast(ray, out hit, 10f)) 
+        {
+            if(hit.transform.tag == "Truck" && !isDriving) 
+            {
+                enterTruckTxt.gameObject.SetActive(true);
+            }
+            else 
+            {
+                enterTruckTxt.gameObject.SetActive(false);
+
+            }
+        }
+
+        if (enterTruckTxt.gameObject.activeInHierarchy) 
+        {
+            if (Input.GetKey("e")) 
+            {
+                StartCoroutine(wait());
+                truckCam.SetActive(true);
+
+            }
+        }
+    }
+
+    IEnumerator wait() 
+    {
+        yield return new WaitForSeconds(.5f);
+        playerModel.SetActive(false);
+        enterTruckTxt.gameObject.SetActive(false);
+        isDriving = true;
     }
 }

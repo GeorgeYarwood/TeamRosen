@@ -16,6 +16,9 @@ public class TruckController : MonoBehaviour
     //Truck Pivot
     public GameObject truckPivot;
 
+    //Where player will spawn when leaving truck
+    public GameObject truckExit;
+
     //Engine rev counter
     float revCount;
 
@@ -50,15 +53,19 @@ public class TruckController : MonoBehaviour
     int lowForce = 15;
     int highForce = 20;
 
+    //Trucks current speed
+    float speed;
+
     //Up vector
     Vector3 upVec = new Vector3(0, 1, 0);
-
-    //Turn speed
-    int turnSpeed = 105;
 
     //Truck last pos
     Vector3 lastPosition;
 
+    //Engine sound
+    public AudioClip engineAud;
+
+    public GameObject truckStopMsg;
     
     // Start is called before the first frame update
     void Start()
@@ -111,18 +118,13 @@ public class TruckController : MonoBehaviour
 
     }
 
-    void drive() 
-    {
-        
-    }
-
 
     void FixedUpdate()
     {
         Debug.Log(revCount);
 
         //Work out current speed
-        float speed = (transform.position - lastPosition).magnitude / Time.deltaTime;
+        speed = (transform.position - lastPosition).magnitude / Time.deltaTime;
 
 
         //Check player is in truck
@@ -174,6 +176,8 @@ public class TruckController : MonoBehaviour
                 if (Input.GetKey("s"))
                 {
                     revCount -= 40f;
+                    truckRb.AddForce(-(truckRb.transform.forward * lowForce));
+
                 }
                 else 
                 {
@@ -261,5 +265,38 @@ public class TruckController : MonoBehaviour
         revCounterUI.value = revCount;
 
         gearTxt.text = gear.ToString();
+
+        
+        
+        
+
+        if (Input.GetKey("e") && PlayerController.isDriving && speed <=0)
+        {
+            Camera truckCam = GetComponentInChildren<Camera>();
+            truckCam.gameObject.SetActive(false);
+            PlayerController.playerModel.SetActive(true);
+            PlayerController.playerModel.transform.position = truckExit.transform.position;
+            StartCoroutine(wait());
+        }
+        else if(Input.GetKey("e") && PlayerController.isDriving && speed >1)
+        {
+            StartCoroutine(stopTruck());
+        }
+
+
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(1f);
+        PlayerController.isDriving = false;
+
+    }
+
+    IEnumerator stopTruck() 
+    {
+        truckStopMsg.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        truckStopMsg.SetActive(false);
     }
 }
