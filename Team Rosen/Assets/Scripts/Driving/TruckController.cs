@@ -1,9 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TruckController : MonoBehaviour
 {
+    //Rev counter UI
+    public Slider revCounterUI;
+
+    public Text gearTxt;
+
+    //Truck rigidbody
+    public Rigidbody truckRb;
+
+    //Truck Pivot
+    public GameObject truckPivot;
+
     //Engine rev counter
     float revCount;
 
@@ -21,7 +33,7 @@ public class TruckController : MonoBehaviour
     int maxGear = 7;
 
     //Max speed
-    float maxSpeed = 1000f;
+    float maxSpeed = 20f;
 
     //Minimum revs
     float minRev = 500f;
@@ -31,6 +43,23 @@ public class TruckController : MonoBehaviour
     //Time player has been holding the accelerator
     float timeHeld;
 
+    //When in process of changing gear
+    bool gearChanging;
+
+    //Different force values for different stages of revs
+    int lowForce = 15;
+    int highForce = 20;
+
+    //Up vector
+    Vector3 upVec = new Vector3(0, 1, 0);
+
+    //Turn speed
+    int turnSpeed = 105;
+
+    //Truck last pos
+    Vector3 lastPosition;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +69,9 @@ public class TruckController : MonoBehaviour
         revCount = minRev;
         gear = 0;
 
+        //Get Rigidbody
+        truckRb = GetComponent<Rigidbody>();
+
     }
 
     void shiftUp() 
@@ -48,8 +80,10 @@ public class TruckController : MonoBehaviour
         if(gear < maxGear) 
         {
             gear += 1;
-            revCount = minRev + 100f;
+            revCount = minRev + 500f;
             Debug.Log(gear);
+            StartCoroutine(gearChangeWait());
+            
         }
        
     }
@@ -61,10 +95,20 @@ public class TruckController : MonoBehaviour
         {
             gear -= 1;
             if(gear != 0)
-            revCount = maxRev - 100f;
+            revCount = maxRev - 500f;
             Debug.Log(gear);
+            StartCoroutine(gearChangeWait());
+
         }
-        
+
+    }
+
+    IEnumerator gearChangeWait() 
+    {
+        gearChanging = true;
+        yield return new WaitForSeconds(1.5f);
+        gearChanging = false;
+
     }
 
     void drive() 
@@ -77,26 +121,38 @@ public class TruckController : MonoBehaviour
     {
         Debug.Log(revCount);
 
+        //Work out current speed
+        float speed = (transform.position - lastPosition).magnitude / Time.deltaTime;
+
+
         //Check player is in truck
         if (PlayerController.isDriving)
         {
-            if (Input.GetKey("w"))
+
+            //Acceleration
+
+            if (Input.GetKey("w") && !gearChanging && truckRb.velocity.z < maxSpeed)
             {
                 if(gear > 0) 
                 {
                     //Start counting
                     timeHeld += 1 * Time.deltaTime;
 
-                    if (revCount < maxRev - 1)
+                    if (revCount < maxRev - 500)
                     {
                         if (timeHeld <= 3f)
                         {
                             revCount += 2f;
+                            truckRb.AddForce(truckRb.transform.forward * lowForce);
+
                         }
-                        else if (timeHeld > 2f)
+                        else if (timeHeld > 4f)
                         {
                             revCount += 10f;
+                            truckRb.AddForce(truckRb.transform.forward * highForce);
+
                         }
+
                     }
                     else
                     {
@@ -117,11 +173,11 @@ public class TruckController : MonoBehaviour
 
                 if (Input.GetKey("s"))
                 {
-                    revCount -= 10f;
+                    revCount -= 40f;
                 }
                 else 
                 {
-                    revCount -= 2f;
+                    revCount -= 5f;
 
                 }
             }
@@ -130,6 +186,71 @@ public class TruckController : MonoBehaviour
                 shiftDown();
             }
 
+            else if (Input.GetKeyUp("w")) 
+            {
+                timeHeld = 0;
+
+            }
+
+            if(gear > 1 && revCount > minRev)
+            {
+                truckRb.AddForce(truckRb.transform.forward * 7f);
+            }
+
+            //Steering
+
+            //Turn amount
+            double left = 0;
+
+
+            //Right turn
+            if (Input.GetKey("d")) 
+            {
+                if (speed < 1)
+                {
+                    left = .1f;
+
+                }
+
+                else if (speed <= 5) 
+                {
+                    left = .3f;
+
+                }
+                else
+                {
+                    left = .5f;
+
+                }
+               
+            }
+
+            //Left turn
+            if (Input.GetKey("a"))
+            {
+                if (speed < 1)
+                {
+                    left = -.1f;
+
+                }
+
+                else if (speed <= 5)
+                {
+                    left = -.3f;
+
+                }
+                else
+                {
+                    left = - .5f;
+
+                }
+            }
+
+            transform.Rotate(0, (float)left, 0);
+
+            Debug.Log(speed);
+
+            lastPosition = transform.position;
         }
        
     }
@@ -137,6 +258,8 @@ public class TruckController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        revCounterUI.value = revCount;
+
+        gearTxt.text = gear.ToString();
     }
 }
