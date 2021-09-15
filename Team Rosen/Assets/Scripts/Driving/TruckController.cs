@@ -51,7 +51,7 @@ public class TruckController : MonoBehaviour
 
     //Different force values for different stages of revs
     int lowForce = 15;
-    int highForce = 20;
+    int highForce = 18;
 
     //Trucks current speed
     float speed;
@@ -156,9 +156,14 @@ public class TruckController : MonoBehaviour
                         }
 
                     }
-                    else
+                    else if(gear < maxGear)
                     {
                         shiftUp();
+                    }
+                    else 
+                    {
+                        truckRb.AddForce(truckRb.transform.forward * highForce);
+
                     }
 
 
@@ -218,12 +223,12 @@ public class TruckController : MonoBehaviour
 
                 else if (speed <= 5) 
                 {
-                    left = .3f;
+                    left = .4f;
 
                 }
                 else
                 {
-                    left = .5f;
+                    left = .2f;
 
                 }
                
@@ -240,12 +245,12 @@ public class TruckController : MonoBehaviour
 
                 else if (speed <= 5)
                 {
-                    left = -.3f;
+                    left = -.4f;
 
                 }
                 else
                 {
-                    left = - .5f;
+                    left = - .2f;
 
                 }
             }
