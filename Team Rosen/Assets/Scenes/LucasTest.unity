@@ -630,11 +630,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6897950035355173028, guid: 7154817208343004fb1c8c51fff12818, type: 3}
   m_PrefabInstance: {fileID: 1628920018}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &718600847 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6897950035355173028, guid: 7154817208343004fb1c8c51fff12818, type: 3}
-  m_PrefabInstance: {fileID: 238362799}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &757533566
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +817,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67f35de45c8a774f84faa2c4d3d9599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrashCans: []
+  TrashCans:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!64 &1005404412
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1000,7 +1007,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TrashCans:
-  - {fileID: 718600847}
   - {fileID: 1231160401}
   - {fileID: 511952231}
   - {fileID: 679497089}

@@ -5,7 +5,9 @@ using UnityEngine;
 public class TrashCanSpawn : MonoBehaviour
 {
     bool isCollected;
-    public GameObject[] TrashCans;
+    public GameObject[] TrashCans = new GameObject[12];
+
+    bool ready = false;
     
     public 
     // Start is called before the first frame update
@@ -21,6 +23,9 @@ public class TrashCanSpawn : MonoBehaviour
         {
             TrashCans[i].SetActive(false);
         }
+
+        //Only start changing them when they have all been disabled
+        ready = true;
         
 
     }
@@ -28,9 +33,18 @@ public class TrashCanSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int randomIndex = Random.Range(0, TrashCans.Length);
-        TrashCans[randomIndex].SetActive(true);
+        if (ready) 
+        {
+            int randomIndex = Random.Range(0, TrashCans.Length);
+
+            
+            TrashCans[randomIndex].SetActive(true);
+        }
         
         
+
+
+
+
     }
 }
