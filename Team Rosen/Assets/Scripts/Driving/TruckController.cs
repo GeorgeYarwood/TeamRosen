@@ -73,6 +73,11 @@ public class TruckController : MonoBehaviour
     public GameObject truckStopMsg;
     public Text healthTxt;
 
+    public GameObject dialNeedle;
+    public GameObject speedNeedle;
+
+    public GameObject truckUI;
+
     //The trucks current health, if 0 game will end
     public static int health = 100;
     
@@ -194,7 +199,7 @@ public class TruckController : MonoBehaviour
                         {
                             revCount += 10f;
                             truckRb.AddForce(truckRb.transform.forward * highForce);
-
+                           
                         }
                         engineAud.pitch += 0.001f;
                     }
@@ -317,7 +322,16 @@ public class TruckController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        revCounterUI.value = revCount;
+        //revCounterUI.value = revCount;
+
+        if (truckUI.activeInHierarchy) 
+        {
+            dialNeedle.transform.rotation = Quaternion.Euler(0, 0, -revCount / 10);
+            speedNeedle.transform.rotation = Quaternion.Euler(0, 0, -speed * 15);
+        }
+
+       
+
 
         if(gear != 0 && gear != -1) 
         {
@@ -338,7 +352,11 @@ public class TruckController : MonoBehaviour
 
             engineAud.clip = ignitionAud;
             engineAud.Play();
+
+
             StartCoroutine(startTruck());
+
+
         }
 
 
@@ -350,6 +368,8 @@ public class TruckController : MonoBehaviour
             PlayerController.playerModel.SetActive(true);
             PlayerController.playerModel.transform.position = truckExit.transform.position;
             engineAud.Stop();
+            truckUI.SetActive(false);
+            
             StartCoroutine(wait());
         }
         else if(Input.GetKey("e") && PlayerController.isDriving && speed > 5)
@@ -368,15 +388,16 @@ public class TruckController : MonoBehaviour
 
         yield return new WaitForSeconds(engineAud.clip.length);
         isOn = true;
+        truckUI.SetActive(true);
 
     }
 
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.2f);
         PlayerController.isDriving = false;
-
+        isOn = false;
     }
 
     IEnumerator stopTruck() 
