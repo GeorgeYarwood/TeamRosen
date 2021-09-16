@@ -56,8 +56,7 @@ public class TruckController : MonoBehaviour
     //Trucks current speed
     float speed;
 
-    //Up vector
-    Vector3 upVec = new Vector3(0, 1, 0);
+ 
 
     //Truck last pos
     Vector3 lastPosition;
@@ -72,6 +71,10 @@ public class TruckController : MonoBehaviour
     bool isOn;
 
     public GameObject truckStopMsg;
+    public Text healthTxt;
+
+    //The trucks current health, if 0 game will end
+    public static int health = 100;
     
     // Start is called before the first frame update
     void Start()
@@ -355,6 +358,8 @@ public class TruckController : MonoBehaviour
         }
 
 
+
+        healthTxt.text = health.ToString();
     }
 
     IEnumerator startTruck() 
