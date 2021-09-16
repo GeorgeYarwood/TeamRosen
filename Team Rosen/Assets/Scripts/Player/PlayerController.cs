@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     float jumpSpeed = 400f;
 
     //Jump cooldown timer
-    float jumpCooldown = 1f;
+    float jumpCooldown = 1.2f;
 
     //Up vector
     Vector3 upVec = new Vector3(0, 1, 0);

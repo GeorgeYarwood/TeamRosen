@@ -11,7 +11,7 @@ public class CarAI : MonoBehaviour
 
 
     //Distance AI has to be before starting to follow the player
-    float followdist = 50f;
+    float followdist = 20f;
 
 
     //Car will drive between these two points while idle
@@ -30,11 +30,33 @@ public class CarAI : MonoBehaviour
     //Distance from player
     float distToPlayer;
 
+    //Cars rigidbody
+    Rigidbody carRb;
+
+    //Force applied when hitting player
+    float bounceForce = 500;
+
+    bool driving;
+
     // Start is called before the first frame update
     void Start()
     {
         //Start as idle
         currState = states.idle;
+
+        player = GameObject.FindGameObjectWithTag("Truck");
+
+        car = GetComponent<NavMeshAgent>();
+
+        carRb = GetComponent<Rigidbody>();
+
+    }
+
+    IEnumerator wait() 
+    {
+        driving = true;
+        yield return new WaitForSeconds(10f);
+        driving = false;
     }
 
     // Update is called once per frame
@@ -52,17 +74,26 @@ public class CarAI : MonoBehaviour
                 //Distance between us and the player
                 distToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
+                
+
                 if(distToPlayer > followdist) 
                 {
-                    if (goal1Dist < goal2Dist)
+                    if (!driving) 
                     {
-                        car.destination = Goal2.transform.position;
-                    }
-                    else if (goal2Dist < goal1Dist)
-                    {
-                        car.destination = Goal1.transform.position;
 
+                        if (goal1Dist < goal2Dist)
+                        {
+                            car.destination = Goal2.transform.position;
+                        }
+                        else if (goal2Dist < goal1Dist)
+                        {
+                            car.destination = Goal1.transform.position;
+
+                        }
+
+                        StartCoroutine(wait());
                     }
+                    
                 }
                 else 
                 {
@@ -93,5 +124,19 @@ public class CarAI : MonoBehaviour
                 break;
 
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+
+        if(collision.gameObject.tag == "Truck") 
+        {
+            //Take health from truck
+            TruckController.health -= 5;
+            carRb.AddForce(carRb.gameObject.transform.forward * -bounceForce);
+
+        }
+
     }
 }
