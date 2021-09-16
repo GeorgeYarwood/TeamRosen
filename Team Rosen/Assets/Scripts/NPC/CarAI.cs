@@ -11,7 +11,7 @@ public class CarAI : MonoBehaviour
 
 
     //Distance AI has to be before starting to follow the player
-    float followdist = 50f;
+    float followdist = 20f;
 
 
     //Car will drive between these two points while idle
@@ -35,6 +35,10 @@ public class CarAI : MonoBehaviour
     {
         //Start as idle
         currState = states.idle;
+
+        player = GameObject.FindGameObjectWithTag("Truck");
+
+        car = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame

@@ -153,7 +153,7 @@ public class TruckController : MonoBehaviour
             {
                 if(gear < 3) 
                 {
-                    truckRb.AddForce(truckRb.transform.forward * (7 * gear));
+                    truckRb.AddForce(truckRb.transform.forward * (8 * gear));
                 }
                 else 
                 {
@@ -187,7 +187,7 @@ public class TruckController : MonoBehaviour
                             truckRb.AddForce(truckRb.transform.forward * lowForce);
 
                         }
-                        else if (timeHeld > 4f)
+                        else if (timeHeld > 3f)
                         {
                             revCount += 10f;
                             truckRb.AddForce(truckRb.transform.forward * highForce);
