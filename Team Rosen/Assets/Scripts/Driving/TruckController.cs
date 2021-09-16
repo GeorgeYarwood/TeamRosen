@@ -149,7 +149,7 @@ public class TruckController : MonoBehaviour
                 engineAud.Play();
             }
 
-            if (gearChanging) 
+            if (gearChanging && speed > 2) 
             {
                 if(gear < 3) 
                 {
