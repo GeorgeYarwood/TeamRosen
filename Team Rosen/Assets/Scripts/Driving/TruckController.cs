@@ -363,8 +363,13 @@ public class TruckController : MonoBehaviour
 
         if (Input.GetKey("e") && PlayerController.isDriving && speed <=0)
         {
-            Camera truckCam = GetComponentInChildren<Camera>();
-            truckCam.gameObject.SetActive(false);
+            try 
+            {
+                Camera truckCam = GetComponentInChildren<Camera>();
+                truckCam.gameObject.SetActive(false);
+            }
+            catch { }
+            
             PlayerController.playerModel.SetActive(true);
             PlayerController.playerModel.transform.position = truckExit.transform.position;
             engineAud.Stop();
@@ -372,7 +377,7 @@ public class TruckController : MonoBehaviour
             
             StartCoroutine(wait());
         }
-        else if(Input.GetKey("e") && PlayerController.isDriving && speed > 5)
+        else if(Input.GetKey("e") && PlayerController.isDriving && speed > 0)
         {
             StartCoroutine(stopTruck());
         }
