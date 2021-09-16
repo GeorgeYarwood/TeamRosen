@@ -37,6 +37,8 @@ public class PickUp : MonoBehaviour
 
                     item.GetComponent<Rigidbody>().useGravity = false;
                     item.GetComponent<Rigidbody>().detectCollisions = true;
+
+
                 }
 
             }
@@ -48,7 +50,8 @@ public class PickUp : MonoBehaviour
         if (Input.GetMouseButtonUp(0)) 
         {
             isHolding = false;
-
+            item.GetComponent<Rigidbody>().useGravity = true;
+            item.GetComponent<Rigidbody>().detectCollisions = true;
         }
 
 
