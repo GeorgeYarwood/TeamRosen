@@ -9,6 +9,8 @@ public class Timer : MonoBehaviour
     public bool timerIsRunning = false;
     public Text timeText;
 
+    public GameObject endScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +33,19 @@ public class Timer : MonoBehaviour
                 Debug.Log("Ran out of time");
                 TimeRemaining = 0;
                 timerIsRunning = false;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                endScreen.SetActive(true);
             }
             DisplayTime(TimeRemaining);
+        }
+
+        if(TruckController.health <= 0) 
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            endScreen.SetActive(true);
+
         }
 
     }

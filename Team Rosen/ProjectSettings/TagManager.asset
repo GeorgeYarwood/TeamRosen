@@ -7,6 +7,7 @@ TagManager:
   - Truck
   - Car
   - Bag
+  - Dump
   layers:
   - Default
   - TransparentFX

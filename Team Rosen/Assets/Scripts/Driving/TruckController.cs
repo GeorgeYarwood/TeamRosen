@@ -80,6 +80,9 @@ public class TruckController : MonoBehaviour
 
     //The trucks current health, if 0 game will end
     public static int health = 100;
+
+    public GameObject winScreen;
+    public Text finalScore;
     
     // Start is called before the first frame update
     void Start()
@@ -333,6 +336,8 @@ public class TruckController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
+
         //revCounterUI.value = revCount;
 
         if (truckUI.activeInHierarchy) 
@@ -421,5 +426,16 @@ public class TruckController : MonoBehaviour
         truckStopMsg.SetActive(true);
         yield return new WaitForSeconds(3f);
         truckStopMsg.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Dump") 
+        {
+            finalScore.text = PlayerController.score.ToString();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            winScreen.SetActive(true);
+        }
     }
 }

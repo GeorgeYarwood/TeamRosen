@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject truckCam;
 
+    //Goes up when we collect more trash
+    public static int score;
+
     // Start is called before the first frame update
     void Start()
     {

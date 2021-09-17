@@ -23,7 +23,10 @@ public class TrashBag : MonoBehaviour
         if (collision.transform.tag == "Truck")
         {
             //Add time to the timer
-            Timer.TimeRemaining += 10f;
+            Timer.TimeRemaining += 20f;
+
+            //Add to score
+            PlayerController.score += 1;
 
             //Destroy bag
             this.gameObject.SetActive(false);

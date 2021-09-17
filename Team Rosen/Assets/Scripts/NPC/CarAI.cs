@@ -34,9 +34,11 @@ public class CarAI : MonoBehaviour
     Rigidbody carRb;
 
     //Force applied when hitting player
-    float bounceForce = 500;
+    float bounceForce = 300;
 
     bool driving;
+
+    bool waiting;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +59,14 @@ public class CarAI : MonoBehaviour
         driving = true;
         yield return new WaitForSeconds(10f);
         driving = false;
+    }
+
+    IEnumerator waitToHitAgain() 
+    {
+        waiting = true;
+        car.destination = car.transform.position;
+        yield return new WaitForSeconds(5f);
+        waiting = false;
     }
 
     // Update is called once per frame
@@ -95,7 +105,7 @@ public class CarAI : MonoBehaviour
                     }
                     
                 }
-                else 
+                else if(PlayerController.isDriving)
                 {
                     currState = states.following;
                 }
@@ -110,10 +120,19 @@ public class CarAI : MonoBehaviour
             case states.following:
 
 
+                if (!PlayerController.isDriving) 
+                {
+                    currState = states.idle;
+                }
+
                 if(distToPlayer < followdist) 
                 {
-                    //Target the player
-                    car.destination = player.transform.position;
+                    if (!waiting) 
+                    {
+                        //Target the player
+                        car.destination = player.transform.position;
+                    }
+                    
                 }
                 else 
                 {
@@ -136,6 +155,8 @@ public class CarAI : MonoBehaviour
             TruckController.health -= 5;
             carRb.AddForce(carRb.gameObject.transform.forward * -bounceForce);
 
+            //Wait to hit again
+            StartCoroutine(waitToHitAgain());
         }
 
     }
