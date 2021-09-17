@@ -13,7 +13,7 @@ public class PickUp : MonoBehaviour
     public bool isHolding = false;
 
 
-
+    public GameObject pickUpTxt;
  
     void Update()
     {
@@ -36,6 +36,7 @@ public class PickUp : MonoBehaviour
                         //Set the current item to the gameobject we hit
                         item = hit.transform.gameObject;
 
+
                         isHolding = true;
 
                         item.GetComponent<Rigidbody>().useGravity = false;
@@ -43,7 +44,7 @@ public class PickUp : MonoBehaviour
 
 
                     }
-
+                   
                 }
 
 
