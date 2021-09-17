@@ -29,7 +29,7 @@ public class PickUp : MonoBehaviour
                 RaycastHit hit;
 
                 //If we hit
-                if (Physics.Raycast(ray, out hit, 10f))
+                if (Physics.Raycast(ray, out hit,5f))
                 {
                     if (hit.transform.tag == "Bag")
                     {
