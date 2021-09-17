@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class musicsystem : MonoBehaviour
-{ static AudioSource musicPlayer;
- static AudioClip [] clips = new AudioClip[3];
- Object [] tracks;   
+{ 
+    static AudioSource musicPlayer;
+    static AudioClip [] clips = new AudioClip[3];
+    Object [] tracks;   
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,15 @@ public class musicsystem : MonoBehaviour
         
     
           } 
+
        }
 
+        Play();
+
+    }
+
+    void Play() 
+    {
+        musicPlayer.clip = clips[0];
     }
 }
