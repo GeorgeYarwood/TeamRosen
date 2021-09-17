@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float TimeRemaining;
+    public static float TimeRemaining;
     public bool timerIsRunning = false;
     public Text timeText;
 
@@ -13,6 +13,8 @@ public class Timer : MonoBehaviour
     void Start()
     {
         timerIsRunning = true;
+
+        TimeRemaining = 200f;
     }
 
     // Update is called once per frame

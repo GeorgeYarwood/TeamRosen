@@ -134,7 +134,7 @@ public class TruckController : MonoBehaviour
         gearChanging = true;
         
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.2f);
         gearChanging = false;
 
     }
@@ -172,14 +172,9 @@ public class TruckController : MonoBehaviour
 
             //Acceleration
 
-            //Reverse gear
-            if(Input.GetKey("s") && speed == 0 && gear <= 0) 
-            {
-                gear = -1;
-                truckRb.AddForce(truckRb.transform.forward * -400);
-            }
+            
 
-            else if (Input.GetKey("w") && !gearChanging && speed < maxSpeed)
+            if (Input.GetKey("w") && !gearChanging && speed < maxSpeed)
             {
                 if(gear > 0) 
                 {
@@ -227,11 +222,15 @@ public class TruckController : MonoBehaviour
                
                 if (Input.GetKey("s"))
                 {
-                    //Start counting
-                    timeHeld += 1 * Time.deltaTime;
 
-                    revCount -= 40f;
-                    truckRb.AddForce(-(truckRb.transform.forward * lowForce));
+
+
+                
+
+                        revCount -= 40f;
+                        truckRb.AddForce(-(truckRb.transform.forward * lowForce));
+                    
+
                 }
                 else 
                 {
@@ -249,6 +248,18 @@ public class TruckController : MonoBehaviour
 
                 }
                 engineAud.pitch -= 0.001f;
+            }
+            else if (Input.GetKey("s")) 
+            {
+
+                if (speed <= 2)
+                {
+
+                    gear = -1;
+                    truckRb.AddForce(truckRb.transform.forward * -100);
+
+
+                }
             }
             if(gear > minGear + 1 && revCount <= minRev + Random.Range(0, 500))
             {
@@ -361,7 +372,7 @@ public class TruckController : MonoBehaviour
 
 
 
-        if (Input.GetKey("e") && PlayerController.isDriving && speed <=0)
+        if (Input.GetKey("e") && PlayerController.isDriving && speed <=2)
         {
             try 
             {
@@ -377,7 +388,7 @@ public class TruckController : MonoBehaviour
             
             StartCoroutine(wait());
         }
-        else if(Input.GetKey("e") && PlayerController.isDriving && speed > 0)
+        else if(Input.GetKey("e") && PlayerController.isDriving && speed > 2)
         {
             StartCoroutine(stopTruck());
         }

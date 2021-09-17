@@ -7,7 +7,7 @@ public class TrashCanSpawn : MonoBehaviour
     bool isCollected;
     public GameObject[] TrashCans;
     Vector3[] originalPos;
-    bool ready = false;
+    public static bool ready = false;
     int randomIndex;
 
     public 
@@ -31,13 +31,34 @@ public class TrashCanSpawn : MonoBehaviour
     {
         if (ready)
         {
+            //Select half of the arrays contents to be spawned randomly
+            for(int i = 0; i< (TrashCans.Length /2); i++) 
+            {
+                randomIndex = Random.Range(0, TrashCans.Length);
 
-            TrashCans[randomIndex].SetActive(true);
+
+                //Check if it has been picked up already
+                if (TrashCans[randomIndex].GetComponentInChildren<TrashBag>().pickedUp != true) 
+                {
+                    //If not, spawn it
+                    TrashCans[randomIndex].SetActive(true);
+                }
+                else 
+                {
+                    //Otherwise, go back and try again
+                    i--;
+                }
+                
+            }
+
+            ready = false;
+            
+
             if (Input.GetKeyDown(KeyCode.LeftControl) == true)
             {
-                TrashCans[randomIndex].SetActive(false);
+                TrashCans[randomIndex].gameObject.SetActive(false);
                 randomIndex = Random.Range(0, TrashCans.Length);
-                TrashCans[randomIndex].SetActive(true);
+                TrashCans[randomIndex].gameObject.SetActive(true);
                 //print("Key works");
             }
         }
