@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class OnButtonClick : MonoBehaviour
 {
+    public GameObject Settings;
+    public GameObject Credits;
+    public GameObject MainMenu;
     public void NextScene()
     {
         SceneManager.LoadScene("Main");
@@ -12,12 +15,20 @@ public class OnButtonClick : MonoBehaviour
 
     public void CanvasSettings()
     {
-        
+        MainMenu.SetActive(false);
+        Settings.SetActive(true);
     }
 
     public void CanvasCredits()
     {
-        
+        Credits.SetActive(true);
+            MainMenu.SetActive(false);
     }
 
+    public void GoBack()
+    {
+        MainMenu.SetActive(true);
+        Credits.SetActive(false);
+        Settings.SetActive(false);
+    }
 }
