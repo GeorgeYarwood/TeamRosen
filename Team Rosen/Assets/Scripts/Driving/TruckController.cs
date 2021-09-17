@@ -358,7 +358,7 @@ public class TruckController : MonoBehaviour
             gearTxt.text = "R";
         }
 
-        if (Input.GetKey("e") &&!isOn && !engineAud.isPlaying) 
+        if (Input.GetKey("e") &&!isOn) 
         {
 
             engineAud.clip = ignitionAud;
