@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OnButtonClick : MonoBehaviour
 {
     public GameObject Settings;
     public GameObject Credits;
     public GameObject MainMenu;
+    public Scrollbar VolumeBar;
+   
+
     public void NextScene()
     {
         SceneManager.LoadScene("Main");
@@ -30,5 +34,11 @@ public class OnButtonClick : MonoBehaviour
         MainMenu.SetActive(true);
         Credits.SetActive(false);
         Settings.SetActive(false);
+    }
+
+    public void volumeController()
+    {
+        
+       
     }
 }
